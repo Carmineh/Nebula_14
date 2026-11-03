@@ -1,72 +1,72 @@
-# Nebula CTF - Livello 14 🔐
+# Nebula CTF - Level 14
 
-Soluzione completa del livello 14 della CTF "Nebula", realizzata tramite reverse engineering di un algoritmo di cifratura posizionale.
+Complete walkthrough and exploit solution for Level 14 of the "Nebula" CTF, achieved via black-box reverse engineering of a position-dependent encryption algorithm.
 
-## 🖥️ Introduzione
+## Introduction
 
-**Nebula** è una delle CTF (Capture The Flag) create da **Exploit Education** per migliorare le proprie competenze in sicurezza informatica e analisi di vulnerabilità.  
-La CTF si svolge su una macchina virtuale Linux-based, progettata per offrire sfide progressive in ambito di:
+**Nebula** is an offensive security and vulnerability analysis CTF (Capture The Flag) platform developed by **Exploit Education**.  
+Hosted on a Linux-based virtual machine, it provides progressive challenges covering:
 
 - Privilege escalation
 - Reverse engineering
-- Exploiting
-- Programmazione in C e scripting
+- Binary exploitation
+- C programming and exploit scripting
 
-Il **livello 14** presenta una sfida di decifrazione/reversing.
+**Level 14** presents a cipher deconstruction and reverse engineering challenge.
 
-## 📜 Descrizione del Problema
+## Challenge Description
 
-Nel livello 14, l’eseguibile fornito accetta una stringa in input e restituisce un output cifrato.
+In Level 14, the target executable accepts an input string and returns an encrypted output string.
 
-L'algoritmo manipola i caratteri della stringa in ingresso applicando trasformazioni condizionate dalla **posizione** dei caratteri stessi.
+The cipher algorithm manipulates each character of the input by applying mathematical transformations conditioned on the **index position** of the character itself.
 
-## 🧠 Soluzione e Approccio
+## Approach and Methodology
 
-### 🔍 Fase 1: Analisi statica
+### Phase 1: Static Analysis
 
-Studio dei file a nostra disposizione, eventuali permessi ad essi associati che permetta di trovare "indizi" per risolvere la sfida CTF.
+Enumeration of accessible files, associated filesystem permissions, and environmental clues within the `/home/flag14` directory to scope the challenge constraints.
 
-### 🔁 Fase 2: Ricostruzione dell’algoritmo
+### Phase 2: Algorithm Reconstruction
 
-Per ricostruire l'algoritmo è stata usata una tecnica di reverse engineering chiamata **black-box analysis**, ovvero studiare la correlazione tra input e output dati al programma.
+Reconstructed the cipher logic using **black-box analysis** by systematically mapping test input patterns against their corresponding encrypted outputs to determine character shift offsets.
 
-### 🧪 Fase 3: Validazione
+### Phase 3: Cipher Reversal and Validation
 
-Una volta risaliti all'algoritmo è stato semplice ricostruire sia l'algoritmo stesso, che un algoritmo che permettesse di decifrare le stringhe, ergo decifrare la stringa contenuta in _token.txt_ che è risultata essere poi la password
+Once the positional transformation was determined, developed a decryption algorithm to reverse the cipher. Applied this script to decrypt the contents of `token.txt`, successfully uncovering the cleartext password.
 
-### 🚩Fase 4: Cattura della Bandiera
+### Phase 4: Exploitation and Flag Capture
 
-Tramite il token decifrato (che si è scoperto poi essere la password) abbiamo effettuato l'accesso all'account _flag14_ ed eseguito il comando _/bin/getflag_ che ha permesso di ricevere l'output desiderato "**You have successfully executed getflag on a target account**" e quindi vinto la sfida.
+Authenticated as the target user `flag14` using the recovered password, then executed `/bin/getflag` to obtain the confirmation: `"You have successfully executed getflag on a target account"`, thereby completing the challenge.
 
-## ℹ️ Informazioni
+## Additional Details
 
-Per informazioni più dettagliate è consigliato visionare la presentazione _Nebula14_presentazione.pdf_ per un albero di attacco completo e una spiegazione dei passi più dettagliata.
+For a complete breakdown including the attack tree analysis and step-by-step methodologies, refer to the presentation `Nebula14_presentazione.pdf`.
 
-## 📁 Contenuto della Repository
+## Repository Structure
 
-- `/soluzioni/decrypt.c` → Script utilizzato per decifrare la stringa (C).
-- `/soluzioni/decrypt.py` → Script utilizzato per decifrare la stringa (python).
-- `Nebula14_presentazione.pdf` → Presentazione didattica svolta in aula a tutti gli studenti del corso
+- `Soluzioni/decrypter.c` - C implementation of the decryption exploit.
+- `Soluzioni/decrypter.py` - Python implementation of the decryption exploit.
+- `Nebula14_presentazione.pdf` - Educational presentation delivered during the university lecture.
 
-## 👨‍👩‍👧 Team
+## Team
 
 <table align="center">
   <tr>
-      <td align="center">
+    <td align="center">
       <a href="https://github.com/TherealBarnar">
-        <img src="https://github.com/TherealBarnar.png" width="80px;" alt=""/><br />
+        <img src="https://github.com/TherealBarnar.png" width="80px;" alt="Giuseppe D'Avino"/><br />
         <sub><b>Giuseppe D'Avino</b></sub>
       </a>
     </td>
     <td align="center">
       <a href="https://github.com/carmineh">
-        <img src="https://github.com/carmineh.png" width="80px;" alt=""/><br />
+        <img src="https://github.com/carmineh.png" width="80px;" alt="Carmine Calabrese"/><br />
         <sub><b>Carmine Calabrese</b></sub>
       </a>
     </td>
     <td align="center">
       <a href="https://github.com/marcociano">
-        <img src="https://github.com/marcociano.png" width="80px;" alt=""/><br />
+        <img src="https://github.com/marcociano.png" width="80px;" alt="Marco Ciano"/><br />
         <sub><b>Marco Ciano</b></sub>
       </a>
     </td>
